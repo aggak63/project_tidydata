@@ -1,0 +1,51 @@
+**What is this all about**
+A project was done by UCI on human activity recognition.(References 1 and 2). In this project, 30 subjects were chosen. Each subject was tied with a smartphone on the waist, and was asked to walk starit, climb upstairs, then downstairs, sit and then lye down. Smartphone was recording measurements of very different nature. Only engineers can understand.  All these measurements were randomly divided into two groups: test and training, with 30% observations in former and 70% in later.
+We as learners of this course were handed over the data set that was separate for test and training group. In each group there were primarily three files: one with subject ID, another with all 561 indices calculated  on each subject, and third also had activity ID information. All these files were in .txt format, with no obvious header.
+**Our Assignment was**
+1. To read the text files in a way that can be used for analysis
+2. Join/ merge the files
+3. have descriptive column names
+4. Have descriptive activity names instead of activity code
+5. finally have the means displayed for each subject and each activity.
+
+**How the script flows?**
+The core of the script that worked was that read these text files as data.tables. Understand what these are. It automatically displays data with hypothetical columns names like V1, V2 etc.With this basic fundamental, script was written as follows:
+
+1. First read all the three test files in data table and create datatable by including all three files,. Store these as "Test" file
+2. Repeat the process for training files.Store this as  "Training" file
+3. Rename the subject ID of each file as "ID"
+4. Merge the two files using "ID" as key
+
+**Detailed Process was as follows:**
+Important challange was to extract  only means and SDs from a total set of 561 indices. For that first by editing the features text, all required indices were separated. These were all grouped for different measurements. For example for mean and SD measurements of "tBodyAcc for three directions x,y, and z , measurements were located in columns V1 to V6. Similarly other measurements were contained at different positions. Therefore file processing was done as follows:
+
+1. I created separate files to store each type of group. According 13 groups were created for test files and 13 for training files. Then these 13 files of each test and training were joined together using data table feature. Now two files were created: 1) tgp and trgp.
+2. Similarly, both subject files and activity files were read and labelled.
+3. In the script, files of test and training have been organised separately, as these were located in different folders and I needed to set working directories for these separately.
+4. All three test files and training files were joined together using data table, giving two files, test file and training file
+
+5. As original data was split into test and training randomly, some observations will be NA in test file and others will be NA in training files. This can be dealt with by the expert programmes. But this was beyond my current scope, although lot of effort was done for it.
+
+6. After this, Rename the subject ID of each file as "ID"
+7. Merge the two files using "ID" as key, and create a single file "merged"
+
+**Next important challenge was to relabel column names and activity label**
+1. First activity ID was relabelled again using features of data table. It also helped to put all the labels of test and training in one column of activity.x.
+2. After that subset of data was extracted and column names( abbreviated from the original) were given,and columns were so arranged that similar variable of test and training now appear together. For example, mean_tBA_xx and mean_tBA_xy. Last x and y in the variable denotes "test" or "training"data. x is for test data and y is for training data. Preceeding x, y and z denote the data of different axes: x, y or z.
+
+**Now was the issue of generating means of each subject and each activity.**
+For this , first dataset was melted into ID variables ( subject ID and activity ID), and only two measurements were taken for demonstration purpose.
+From this melted date, using decast functions, first means of variables were calculated for each subject and then for each activity.
+
+Overall, it is very challanging for medical doctors and non programmers to work on such a datasset and such assignment. There might be short cut commands. However, this was one of the way forward.
+
+
+
+
+**References**
+Jorge L. Reyes-Ortiz(1,2), Davide Anguita(1), Alessandro Ghio(1), Luca Oneto(1) and Xavier Parra(2)
+1 - Smartlab - Non-Linear Complex Systems Laboratory
+DITEN - Università degli Studi di Genova, Genoa (I-16145), Italy. 
+2 - CETpD - Technical Research Centre for Dependency Care and Autonomous Living
+Universitat Politècnica de Catalunya (BarcelonaTech). Vilanova i la Geltrú (08800), Spain
+activityrecognition '@' smartlab.ws
